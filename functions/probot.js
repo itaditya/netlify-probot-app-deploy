@@ -1,6 +1,6 @@
-require('dotenv').config({
-  path: '../.env'
-});
+// require('dotenv').config({
+//   path: '../.env'
+// });
 const { createProbot } = require('probot');
 
 const app = require('../')
@@ -16,6 +16,6 @@ exports.handler = async function(event, context) {
   await app(probot)
   return {
     statusCode: 200,
-    body: `Hello, ${name}`
+    body: `Hello, ${name} ${process.env}`
   };
 }
