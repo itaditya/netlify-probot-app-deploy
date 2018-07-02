@@ -5,12 +5,17 @@ const { createProbot } = require('probot');
 
 const app = require('../')
 
-exports.handler = function(event, context, callback) {
-    const probot = createProbot({
-      id: process.env.APP_ID,
-      secret: process.env.WEBHOOK_SECRET,
-      cert: process.env.PRIVATE_KEY
-    })
+exports.handler = async function(event, context) {
+  const name = event.queryStringParameters.name || "World";
+  const probot = createProbot({
+    id: process.env.APP_ID,
+    secret: process.env.WEBHOOK_SECRET,
+    cert: process.env.PRIVATE_KEY
+  })
 
-    app(probot)
+  await app(probot)
+  return {
+    statusCode: 200,
+    body: `Hello, ${name}`
+  };
 }
